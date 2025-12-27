@@ -1,6 +1,16 @@
 # WindowsCleaningPS
 Powershell Scripts for cleaning and maintaining Windows Clean
 
+## Usage
+
+Just run `./Full.ps1` from its location. Assuming `C:\CleanPS\`
+
+```PS
+PS C:\> C:\CleanPS\Full.ps1
+```
+
+Also you can run each script independently
+
 ## Scripts
 
 ### CleanTemps.ps1
@@ -14,10 +24,13 @@ This script performs several cleaning operations to free up disk space.
 *   Deletes files from the Windows temporary folder (`C:\Windows\Temp`).
 *   Deletes files from the Prefetch folder.
 *   Runs the Disk Cleanup utility (`cleanmgr.exe`) to perform a comprehensive cleanup.
+    * It's recommended to run first `cleanmgr.exe /sageset:65535` to configure the cleaning process. [cleanmgr docs](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cleanmgr)
 
 ### RestoreHealth.ps1
 
 This script uses built-in Windows tools to scan for and repair corrupted system files.
+
+- [DISM](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism---deployment-image-servicing-and-management-technical-reference-for-windows?view=windows-11)
 
 **Commands:**
 
@@ -25,6 +38,8 @@ This script uses built-in Windows tools to scan for and repair corrupted system 
 *   `DISM.exe /Online /Cleanup-image /Restorehealth`: Repairs any corruption found in the component store.
 *   `DISM.exe /Online /Cleanup-image /Startcomponentcleanup`: Cleans up and compresses the component store.
 *   `sfc /scannow`: Scans all protected system files and replaces corrupted files.
+
+[Source](https://support.microsoft.com/en-us/topic/use-the-system-file-checker-tool-to-repair-missing-or-corrupted-system-files-79aa86cb-ca52-166a-92a3-966e85d4094e)
 
 ### TrimDiscs.ps1
 
@@ -39,3 +54,4 @@ This is a master script that runs the other maintenance scripts in a specific or
 1.  `CleanTemps.ps1`
 2.  `RestoreHealth.ps1`
 3.  `TrimDiscs.ps1`
+
